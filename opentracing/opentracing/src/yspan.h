@@ -7,7 +7,7 @@
 #include <vector>
 #include <opentracing/util.h>
 //#include "lightstep-tracer-common/collector.pb.h"
-#include "lightstep_span_context.h"
+#include "yspan_context.h"
 //#include "logger.h"
 //#include "recorder.h"
 
@@ -74,7 +74,7 @@ class YSpan : public opentracing::Span {
   std::chrono::system_clock::time_point start_timestamp_;
   std::chrono::steady_clock::time_point start_steady_;
   std::chrono::steady_clock::time_point finish_steady_;
-  LightStepSpanContext span_context_;
+  YSpanContext span_context_;
 
   std::atomic<bool> is_finished_{false};
 

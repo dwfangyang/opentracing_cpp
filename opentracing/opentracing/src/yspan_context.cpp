@@ -1,10 +1,10 @@
-#include "lightstep_span_context.h"
+#include "yspan_context.h"
 
 namespace YYOT {
 //------------------------------------------------------------------------------
 // Constructor
 //------------------------------------------------------------------------------
-LightStepSpanContext::LightStepSpanContext(
+YSpanContext::YSpanContext(
     uint64_t trace_id, uint64_t span_id,
     std::unordered_map<std::string, std::string>&& baggage) noexcept
     : trace_id_{trace_id}, span_id_{span_id}, baggage_{std::move(baggage)} {}
@@ -12,8 +12,8 @@ LightStepSpanContext::LightStepSpanContext(
 //------------------------------------------------------------------------------
 // operator=
 //------------------------------------------------------------------------------
-LightStepSpanContext& LightStepSpanContext::operator=(
-    LightStepSpanContext&& other) noexcept {
+YSpanContext& YSpanContext::operator=(
+    YSpanContext&& other) noexcept {
   trace_id_ = other.trace_id_;
   span_id_ = other.span_id_;
   baggage_ = std::move(other.baggage_);
@@ -23,7 +23,7 @@ LightStepSpanContext& LightStepSpanContext::operator=(
 //------------------------------------------------------------------------------
 // set_baggage_item
 //------------------------------------------------------------------------------
-void LightStepSpanContext::set_baggage_item(
+void YSpanContext::set_baggage_item(
     opentracing::string_view key, opentracing::string_view value) noexcept try {
   std::lock_guard<std::mutex> lock_guard{baggage_mutex_};
   baggage_.emplace(key, value);
@@ -34,7 +34,7 @@ void LightStepSpanContext::set_baggage_item(
 //------------------------------------------------------------------------------
 // baggage_item
 //------------------------------------------------------------------------------
-std::string LightStepSpanContext::baggage_item(
+std::string YSpanContext::baggage_item(
     opentracing::string_view key) const {
   std::lock_guard<std::mutex> lock_guard{baggage_mutex_};
   auto lookup = baggage_.find(key);
@@ -47,7 +47,7 @@ std::string LightStepSpanContext::baggage_item(
 //------------------------------------------------------------------------------
 // ForeachBaggageItem
 //------------------------------------------------------------------------------
-void LightStepSpanContext::ForeachBaggageItem(
+void YSpanContext::ForeachBaggageItem(
     std::function<bool(const std::string& key, const std::string& value)> f)
     const {
   std::lock_guard<std::mutex> lock_guard{baggage_mutex_};

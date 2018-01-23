@@ -7,11 +7,11 @@
 #include "ytracer.h"
 
 namespace YYOT {
-class LightStepTracerImpl
+class YTracerImpl
     : public LightStepTracer,
-      public std::enable_shared_from_this<LightStepTracerImpl> {
+      public std::enable_shared_from_this<YTracerImpl> {
  public:
-  LightStepTracerImpl(const PropagationOptions& propagation_options/*,
+  YTracerImpl(const PropagationOptions& propagation_options/*,
                       std::unique_ptr<Recorder>&& recorder*/) noexcept;
 
 //  LightStepTracerImpl(std::shared_ptr<Logger> logger,

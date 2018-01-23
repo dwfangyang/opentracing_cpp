@@ -8,21 +8,21 @@
 #include "ypropagation.h"
 
 namespace YYOT {
-class LightStepSpanContext : public opentracing::SpanContext {
+class YSpanContext : public opentracing::SpanContext {
  public:
-  LightStepSpanContext() = default;
+  YSpanContext() = default;
 
-  LightStepSpanContext(
+  YSpanContext(
       uint64_t trace_id, uint64_t span_id,
       std::unordered_map<std::string, std::string>&& baggage) noexcept;
 
-  LightStepSpanContext(const LightStepSpanContext&) = delete;
-  LightStepSpanContext(LightStepSpanContext&&) = delete;
+  YSpanContext(const YSpanContext&) = delete;
+  YSpanContext(YSpanContext&&) = delete;
 
-  ~LightStepSpanContext() override = default;
+  ~YSpanContext() override = default;
 
-  LightStepSpanContext& operator=(LightStepSpanContext&) = delete;
-  LightStepSpanContext& operator=(LightStepSpanContext&& other) noexcept;
+  YSpanContext& operator=(YSpanContext&) = delete;
+  YSpanContext& operator=(YSpanContext&& other) noexcept;
 
   void set_baggage_item(opentracing::string_view key,
                         opentracing::string_view value) noexcept;

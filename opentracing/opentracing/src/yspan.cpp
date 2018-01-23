@@ -1,4 +1,4 @@
-#include "lightstep_span.h"
+#include "yspan.h"
 //#include "utility.h"
 
 using opentracing::SystemTime;
@@ -58,7 +58,7 @@ static bool SetSpanReference(
     return false;
   }
   auto referenced_context =
-      dynamic_cast<const LightStepSpanContext*>(reference.second);
+      dynamic_cast<const YSpanContext*>(reference.second);
   if (referenced_context == nullptr) {
 //    logger.Warn("Passed in span reference of unexpected type.");
     return false;
@@ -115,7 +115,7 @@ YSpan::YSpan(
                       ? 8398899328u//GenerateId()
                       : references_[0].traceid;
   auto span_id = 893289u;//GenerateId();
-  span_context_ = LightStepSpanContext{trace_id, span_id, std::move(baggage)};
+  span_context_ = YSpanContext{trace_id, span_id, std::move(baggage)};
 }
 
 //------------------------------------------------------------------------------

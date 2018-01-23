@@ -12,8 +12,8 @@
 //#include "auto_recorder.h"
 //#include "grpc_transporter.h"
 //#include "lightstep-tracer-common/collector.pb.h"
-#include "lightstep_span_context.h"
-#include "lightstep_tracer_impl.h"
+#include "yspan_context.h"
+#include "ytracer_impl.h"
 //#include "logger.h"
 //#include "manual_recorder.h"
 //#include "utility.h"
@@ -61,7 +61,7 @@ const std::string& CollectorMethodName() {
 opentracing::expected<std::array<uint64_t, 2>> LightStepTracer::GetTraceSpanIds(
     const opentracing::SpanContext& span_context) const noexcept {
   auto lightstep_span_context =
-      dynamic_cast<const LightStepSpanContext*>(&span_context);
+      dynamic_cast<const YSpanContext*>(&span_context);
   if (lightstep_span_context == nullptr) {
     return opentracing::make_unexpected(
         opentracing::invalid_span_context_error);
@@ -79,7 +79,7 @@ LightStepTracer::MakeSpanContext(
     uint64_t trace_id, uint64_t span_id,
     std::unordered_map<std::string, std::string>&& baggage) const noexcept try {
   std::unique_ptr<opentracing::SpanContext> result{
-      new LightStepSpanContext{trace_id, span_id, std::move(baggage)}};
+      new YSpanContext{trace_id, span_id, std::move(baggage)}};
   return std::move(result);
 } catch (const std::bad_alloc&) {
   return opentracing::make_unexpected(
@@ -90,7 +90,7 @@ LightStepTracer::MakeSpanContext(
 // MakeThreadedTracer
 //------------------------------------------------------------------------------
 static std::shared_ptr<LightStepTracer> MakeThreadedTracer(
-    /*std::shared_ptr<Logger> logger,*/ LightStepTracerOptions&& options) {
+    /*std::shared_ptr<Logger> logger,*/ YTracerOptions&& options) {
 //  std::unique_ptr<SyncTransporter> transporter;
 //  if (options.transporter != nullptr) {
 //    transporter = std::unique_ptr<SyncTransporter>{
@@ -108,7 +108,7 @@ static std::shared_ptr<LightStepTracer> MakeThreadedTracer(
 //  propagation_options.use_single_key = options.use_single_key_propagation;
 //  auto recorder = std::unique_ptr<Recorder>{
 //      new AutoRecorder{*logger, std::move(options), std::move(transporter)}};
-  return std::shared_ptr<LightStepTracer>{new LightStepTracerImpl{
+  return std::shared_ptr<LightStepTracer>{new YTracerImpl{
       /*std::move(logger), */propagation_options/*, std::move(recorder)*/}};
 }
 
@@ -144,7 +144,7 @@ static std::shared_ptr<LightStepTracer> MakeThreadedTracer(
 // MakeLightStepTracer
 //------------------------------------------------------------------------------
 std::shared_ptr<LightStepTracer> MakeLightStepTracer(
-    LightStepTracerOptions&& options) noexcept try {
+    YTracerOptions&& options) noexcept try {
   // Create and configure the logger.
 //  auto logger = std::make_shared<Logger>(std::move(options.logger_sink));
   try {

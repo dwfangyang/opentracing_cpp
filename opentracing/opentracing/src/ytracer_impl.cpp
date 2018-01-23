@@ -1,6 +1,6 @@
-#include "lightstep_tracer_impl.h"
-#include "lightstep_span.h"
-#include "lightstep_span_context.h"
+#include "ytracer_impl.h"
+#include "yspan.h"
+#include "yspan_context.h"
 
 namespace YYOT {
 
@@ -12,7 +12,7 @@ static opentracing::expected<void> InjectImpl(
     const PropagationOptions& propagation_options,
     const opentracing::SpanContext& span_context, Carrier& writer) {
   auto lightstep_span_context =
-      dynamic_cast<const LightStepSpanContext*>(&span_context);
+      dynamic_cast<const YSpanContext*>(&span_context);
   if (lightstep_span_context == nullptr) {
     return opentracing::make_unexpected(
         opentracing::invalid_span_context_error);
@@ -26,9 +26,9 @@ static opentracing::expected<void> InjectImpl(
 template <class Carrier>
 opentracing::expected<std::unique_ptr<opentracing::SpanContext>> ExtractImpl(
     const PropagationOptions& propagation_options, Carrier& reader) {
-  LightStepSpanContext* lightstep_span_context;
+  YSpanContext* lightstep_span_context;
   try {
-    lightstep_span_context = new LightStepSpanContext{};
+    lightstep_span_context = new YSpanContext{};
   } catch (const std::bad_alloc&) {
     return opentracing::make_unexpected(
         make_error_code(std::errc::not_enough_memory));
@@ -48,7 +48,7 @@ opentracing::expected<std::unique_ptr<opentracing::SpanContext>> ExtractImpl(
 //------------------------------------------------------------------------------
 // Constructor
 //------------------------------------------------------------------------------
-LightStepTracerImpl::LightStepTracerImpl(
+YTracerImpl::YTracerImpl(
     const PropagationOptions& propagation_options/*,
     std::unique_ptr<Recorder>&& recorder*/) noexcept
     : /*logger_{std::make_shared<Logger>()},*/
@@ -66,7 +66,7 @@ LightStepTracerImpl::LightStepTracerImpl(
 //------------------------------------------------------------------------------
 // StartSpanWithOptions
 //------------------------------------------------------------------------------
-std::unique_ptr<opentracing::Span> LightStepTracerImpl::StartSpanWithOptions(
+std::unique_ptr<opentracing::Span> YTracerImpl::StartSpanWithOptions(
     opentracing::string_view operation_name,
     const opentracing::StartSpanOptions& options) const noexcept try {
   return std::unique_ptr<opentracing::Span>{new YSpan{
@@ -84,13 +84,13 @@ std::unique_ptr<opentracing::Span> LightStepTracerImpl::StartSpanWithOptions(
 //  return InjectImpl(propagation_options_, span_context, writer);
 //}
 
-opentracing::expected<void> LightStepTracerImpl::Inject(
+opentracing::expected<void> YTracerImpl::Inject(
     const opentracing::SpanContext& span_context,
     const opentracing::TextMapWriter& writer) const {
   return InjectImpl(propagation_options_, span_context, writer);
 }
 
-opentracing::expected<void> LightStepTracerImpl::Inject(
+opentracing::expected<void> YTracerImpl::Inject(
     const opentracing::SpanContext& span_context,
     const opentracing::HTTPHeadersWriter& writer) const {
   return InjectImpl(propagation_options_, span_context, writer);
@@ -105,12 +105,12 @@ opentracing::expected<void> LightStepTracerImpl::Inject(
 //}
 
 opentracing::expected<std::unique_ptr<opentracing::SpanContext>>
-LightStepTracerImpl::Extract(const opentracing::TextMapReader& reader) const {
+YTracerImpl::Extract(const opentracing::TextMapReader& reader) const {
   return ExtractImpl(propagation_options_, reader);
 }
 
 opentracing::expected<std::unique_ptr<opentracing::SpanContext>>
-LightStepTracerImpl::Extract(
+YTracerImpl::Extract(
     const opentracing::HTTPHeadersReader& reader) const {
   return ExtractImpl(propagation_options_, reader);
 }
@@ -118,12 +118,12 @@ LightStepTracerImpl::Extract(
 //------------------------------------------------------------------------------
 // Flush
 //------------------------------------------------------------------------------
-bool LightStepTracerImpl::Flush() noexcept {
+bool YTracerImpl::Flush() noexcept {
   return true;//recorder_->FlushWithTimeout(std::chrono::hours(24));
 }
 
 //------------------------------------------------------------------------------
 // Close
 //------------------------------------------------------------------------------
-void LightStepTracerImpl::Close() noexcept { Flush(); }
+void YTracerImpl::Close() noexcept { Flush(); }
 }  // namespace lightstep
