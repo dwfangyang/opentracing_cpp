@@ -12,7 +12,6 @@
 		C0A0564F201373BE00163D36 /* propagation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C0A05635201373BE00163D36 /* propagation.cpp */; };
 		C0A05650201373BE00163D36 /* tracer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C0A05636201373BE00163D36 /* tracer.cpp */; };
 		C0A05652201373BE00163D36 /* catch.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C0A0563C201373BE00163D36 /* catch.hpp */; };
-		C0A05653201373BE00163D36 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = C0A0563D201373BE00163D36 /* LICENSE.txt */; };
 		C0A05654201373BE00163D36 /* expected.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C0A0563F201373BE00163D36 /* expected.hpp */; };
 		C0A05657201373BE00163D36 /* recursive_wrapper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C0A05643201373BE00163D36 /* recursive_wrapper.hpp */; };
 		C0A05658201373BE00163D36 /* variant.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C0A05644201373BE00163D36 /* variant.hpp */; };
@@ -58,10 +57,20 @@
 		C0A056AC2015BEA000163D36 /* stream.h in Headers */ = {isa = PBXBuildFile; fileRef = C0A056882015BE9F00163D36 /* stream.h */; };
 		C0A056AD2015BEA000163D36 /* stringbuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = C0A056892015BE9F00163D36 /* stringbuffer.h */; };
 		C0A056AE2015BEA000163D36 /* writer.h in Headers */ = {isa = PBXBuildFile; fileRef = C0A0568A2015BE9F00163D36 /* writer.h */; };
-		C0A056B12015ED6900163D36 /* yyop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C0A056AF2015ED6900163D36 /* yyop.cpp */; };
-		C0A056B22015ED6900163D36 /* yyop.h in Headers */ = {isa = PBXBuildFile; fileRef = C0A056B02015ED6900163D36 /* yyop.h */; };
-		C0A056B52015EE1A00163D36 /* yytracer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C0A056B32015EE1A00163D36 /* yytracer.cpp */; };
-		C0A056B62015EE1A00163D36 /* yytracer.h in Headers */ = {isa = PBXBuildFile; fileRef = C0A056B42015EE1A00163D36 /* yytracer.h */; };
+		C0A056B92016CF2900163D36 /* lightstep_span.h in Headers */ = {isa = PBXBuildFile; fileRef = C0A056B72016CF2900163D36 /* lightstep_span.h */; };
+		C0A056BA2016CF2900163D36 /* lightstep_span.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C0A056B82016CF2900163D36 /* lightstep_span.cpp */; };
+		C0A056BD2016CF5700163D36 /* lightstep_span_context.h in Headers */ = {isa = PBXBuildFile; fileRef = C0A056BB2016CF5700163D36 /* lightstep_span_context.h */; };
+		C0A056BE2016CF5700163D36 /* lightstep_span_context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C0A056BC2016CF5700163D36 /* lightstep_span_context.cpp */; };
+		C0A056C12016E45600163D36 /* ypropagation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C0A056BF2016E45600163D36 /* ypropagation.cpp */; };
+		C0A056C22016E45600163D36 /* ypropagation.h in Headers */ = {isa = PBXBuildFile; fileRef = C0A056C02016E45600163D36 /* ypropagation.h */; };
+		C0A056C52016E52D00163D36 /* in_memory_stream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C0A056C32016E52D00163D36 /* in_memory_stream.cpp */; };
+		C0A056C62016E52D00163D36 /* in_memory_stream.h in Headers */ = {isa = PBXBuildFile; fileRef = C0A056C42016E52D00163D36 /* in_memory_stream.h */; };
+		C0A056C92016E58A00163D36 /* lightstep_tracer_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = C0A056C72016E58A00163D36 /* lightstep_tracer_impl.h */; };
+		C0A056CA2016E58A00163D36 /* lightstep_tracer_impl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C0A056C82016E58A00163D36 /* lightstep_tracer_impl.cpp */; };
+		C0A056CD2016E62100163D36 /* ytracer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C0A056CB2016E62000163D36 /* ytracer.cpp */; };
+		C0A056CE2016E62100163D36 /* ytracer.h in Headers */ = {isa = PBXBuildFile; fileRef = C0A056CC2016E62000163D36 /* ytracer.h */; };
+		C0A056D120171DCE00163D36 /* base64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C0A056CF20171DCE00163D36 /* base64.cpp */; };
+		C0A056D220171DCE00163D36 /* base64.h in Headers */ = {isa = PBXBuildFile; fileRef = C0A056D020171DCE00163D36 /* base64.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,7 +81,6 @@
 		C0A05635201373BE00163D36 /* propagation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = propagation.cpp; sourceTree = "<group>"; };
 		C0A05636201373BE00163D36 /* tracer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tracer.cpp; sourceTree = "<group>"; };
 		C0A0563C201373BE00163D36 /* catch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = catch.hpp; sourceTree = "<group>"; };
-		C0A0563D201373BE00163D36 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		C0A0563F201373BE00163D36 /* expected.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = expected.hpp; sourceTree = "<group>"; };
 		C0A05643201373BE00163D36 /* recursive_wrapper.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = recursive_wrapper.hpp; sourceTree = "<group>"; };
 		C0A05644201373BE00163D36 /* variant.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = variant.hpp; sourceTree = "<group>"; };
@@ -118,10 +126,24 @@
 		C0A056882015BE9F00163D36 /* stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stream.h; sourceTree = "<group>"; };
 		C0A056892015BE9F00163D36 /* stringbuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stringbuffer.h; sourceTree = "<group>"; };
 		C0A0568A2015BE9F00163D36 /* writer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = writer.h; sourceTree = "<group>"; };
-		C0A056AF2015ED6900163D36 /* yyop.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = yyop.cpp; sourceTree = "<group>"; };
-		C0A056B02015ED6900163D36 /* yyop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = yyop.h; sourceTree = "<group>"; };
-		C0A056B32015EE1A00163D36 /* yytracer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = yytracer.cpp; sourceTree = "<group>"; };
-		C0A056B42015EE1A00163D36 /* yytracer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = yytracer.h; sourceTree = "<group>"; };
+		C0A056B72016CF2900163D36 /* lightstep_span.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lightstep_span.h; sourceTree = "<group>"; };
+		C0A056B82016CF2900163D36 /* lightstep_span.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lightstep_span.cpp; sourceTree = "<group>"; };
+		C0A056BB2016CF5700163D36 /* lightstep_span_context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lightstep_span_context.h; sourceTree = "<group>"; };
+		C0A056BC2016CF5700163D36 /* lightstep_span_context.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lightstep_span_context.cpp; sourceTree = "<group>"; };
+		C0A056BF2016E45600163D36 /* ypropagation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ypropagation.cpp; sourceTree = "<group>"; };
+		C0A056C02016E45600163D36 /* ypropagation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ypropagation.h; sourceTree = "<group>"; };
+		C0A056C32016E52D00163D36 /* in_memory_stream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = in_memory_stream.cpp; sourceTree = "<group>"; };
+		C0A056C42016E52D00163D36 /* in_memory_stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = in_memory_stream.h; sourceTree = "<group>"; };
+		C0A056C72016E58A00163D36 /* lightstep_tracer_impl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lightstep_tracer_impl.h; sourceTree = "<group>"; };
+		C0A056C82016E58A00163D36 /* lightstep_tracer_impl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lightstep_tracer_impl.cpp; sourceTree = "<group>"; };
+		C0A056CB2016E62000163D36 /* ytracer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ytracer.cpp; sourceTree = "<group>"; };
+		C0A056CC2016E62000163D36 /* ytracer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ytracer.h; sourceTree = "<group>"; };
+		C0A056CF20171DCE00163D36 /* base64.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = base64.cpp; sourceTree = "<group>"; };
+		C0A056D020171DCE00163D36 /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
+		C0A05B8C2017486400163D36 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		C0A05B8E20174B1D00163D36 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		C0A05B9020174B3200163D36 /* libc.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libc.tbd; path = usr/lib/libc.tbd; sourceTree = SDKROOT; };
+		C0A05B9220174B8000163D36 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +162,7 @@
 			children = (
 				C0A0562A2013716B00163D36 /* opentracing */,
 				C0A056292013716B00163D36 /* Products */,
+				C0A05B8B2017486300163D36 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -167,11 +190,23 @@
 		C0A05633201373BE00163D36 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				C0A056CF20171DCE00163D36 /* base64.cpp */,
+				C0A056D020171DCE00163D36 /* base64.h */,
+				C0A056CB2016E62000163D36 /* ytracer.cpp */,
+				C0A056CC2016E62000163D36 /* ytracer.h */,
+				C0A056C82016E58A00163D36 /* lightstep_tracer_impl.cpp */,
+				C0A056C72016E58A00163D36 /* lightstep_tracer_impl.h */,
+				C0A056C32016E52D00163D36 /* in_memory_stream.cpp */,
+				C0A056C42016E52D00163D36 /* in_memory_stream.h */,
+				C0A056BC2016CF5700163D36 /* lightstep_span_context.cpp */,
+				C0A056BB2016CF5700163D36 /* lightstep_span_context.h */,
+				C0A056B82016CF2900163D36 /* lightstep_span.cpp */,
+				C0A056B72016CF2900163D36 /* lightstep_span.h */,
 				C0A05634201373BE00163D36 /* noop.cpp */,
 				C0A05635201373BE00163D36 /* propagation.cpp */,
 				C0A05636201373BE00163D36 /* tracer.cpp */,
-				C0A056AF2015ED6900163D36 /* yyop.cpp */,
-				C0A056B32015EE1A00163D36 /* yytracer.cpp */,
+				C0A056BF2016E45600163D36 /* ypropagation.cpp */,
+				C0A056C02016E45600163D36 /* ypropagation.h */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -207,7 +242,6 @@
 			isa = PBXGroup;
 			children = (
 				C0A0563C201373BE00163D36 /* catch.hpp */,
-				C0A0563D201373BE00163D36 /* LICENSE.txt */,
 			);
 			path = catch2;
 			sourceTree = "<group>";
@@ -245,9 +279,7 @@
 				C0A05649201373BE00163D36 /* span.h */,
 				C0A0564A201373BE00163D36 /* string_view.h */,
 				C0A0564B201373BE00163D36 /* tracer.h */,
-				C0A056B02015ED6900163D36 /* yyop.h */,
 				C0A0564C201373BE00163D36 /* util.h */,
-				C0A056B42015EE1A00163D36 /* yytracer.h */,
 				C0A0564D201373BE00163D36 /* value.h */,
 			);
 			path = opentracing;
@@ -310,6 +342,17 @@
 			path = internal;
 			sourceTree = "<group>";
 		};
+		C0A05B8B2017486300163D36 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C0A05B9220174B8000163D36 /* CoreFoundation.framework */,
+				C0A05B9020174B3200163D36 /* libc.tbd */,
+				C0A05B8E20174B1D00163D36 /* libc++.tbd */,
+				C0A05B8C2017486400163D36 /* libz.tbd */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -322,19 +365,19 @@
 				C0A056932015BEA000163D36 /* fwd.h in Headers */,
 				C0A0568E2015BEA000163D36 /* encodings.h in Headers */,
 				C0A0569D2015BEA000163D36 /* strfunc.h in Headers */,
-				C0A056B62015EE1A00163D36 /* yytracer.h in Headers */,
 				C0A05659201373BE00163D36 /* noop.h in Headers */,
 				C0A056A72015BEA000163D36 /* pointer.h in Headers */,
 				C0A05661201584B700163D36 /* version.h in Headers */,
 				C0A056AC2015BEA000163D36 /* stream.h in Headers */,
 				C0A0565A201373BE00163D36 /* propagation.h in Headers */,
-				C0A056B22015ED6900163D36 /* yyop.h in Headers */,
 				C0A0568D2015BEA000163D36 /* encodedstream.h in Headers */,
 				C0A056AE2015BEA000163D36 /* writer.h in Headers */,
 				C0A0568F2015BEA000163D36 /* en.h in Headers */,
 				C0A056922015BEA000163D36 /* filewritestream.h in Headers */,
 				C0A056942015BEA000163D36 /* biginteger.h in Headers */,
+				C0A056C92016E58A00163D36 /* lightstep_tracer_impl.h in Headers */,
 				C0A056AB2015BEA000163D36 /* schema.h in Headers */,
+				C0A056CE2016E62100163D36 /* ytracer.h in Headers */,
 				C0A056952015BEA000163D36 /* diyfp.h in Headers */,
 				C0A05652201373BE00163D36 /* catch.hpp in Headers */,
 				C0A056992015BEA000163D36 /* meta.h in Headers */,
@@ -343,11 +386,14 @@
 				C0A056972015BEA000163D36 /* ieee754.h in Headers */,
 				C0A0569E2015BEA000163D36 /* strtod.h in Headers */,
 				C0A0568B2015BEA000163D36 /* allocators.h in Headers */,
+				C0A056C22016E45600163D36 /* ypropagation.h in Headers */,
 				C0A056A22015BEA000163D36 /* memorybuffer.h in Headers */,
 				C0A0568C2015BEA000163D36 /* document.h in Headers */,
 				C0A056A82015BEA000163D36 /* prettywriter.h in Headers */,
+				C0A056C62016E52D00163D36 /* in_memory_stream.h in Headers */,
 				C0A0565E201373BE00163D36 /* util.h in Headers */,
 				C0A0565D201373BE00163D36 /* tracer.h in Headers */,
+				C0A056B92016CF2900163D36 /* lightstep_span.h in Headers */,
 				C0A05658201373BE00163D36 /* variant.hpp in Headers */,
 				C0A0565F201373BE00163D36 /* value.h in Headers */,
 				C0A05654201373BE00163D36 /* expected.hpp in Headers */,
@@ -355,10 +401,12 @@
 				C0A056912015BEA000163D36 /* filereadstream.h in Headers */,
 				C0A0565C201373BE00163D36 /* string_view.h in Headers */,
 				C0A056962015BEA000163D36 /* dtoa.h in Headers */,
+				C0A056D220171DCE00163D36 /* base64.h in Headers */,
 				C0A0562D2013716B00163D36 /* opentracing.h in Headers */,
 				C0A056A92015BEA000163D36 /* rapidjson.h in Headers */,
 				C0A056AA2015BEA000163D36 /* reader.h in Headers */,
 				C0A056AD2015BEA000163D36 /* stringbuffer.h in Headers */,
+				C0A056BD2016CF5700163D36 /* lightstep_span_context.h in Headers */,
 				C0A056A32015BEA000163D36 /* memorystream.h in Headers */,
 				C0A0565B201373BE00163D36 /* span.h in Headers */,
 				C0A0569A2015BEA000163D36 /* pow10.h in Headers */,
@@ -427,7 +475,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0A056A12015BEA000163D36 /* license.txt in Resources */,
-				C0A05653201373BE00163D36 /* LICENSE.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -438,11 +485,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0A056BA2016CF2900163D36 /* lightstep_span.cpp in Sources */,
 				C0A05650201373BE00163D36 /* tracer.cpp in Sources */,
-				C0A056B52015EE1A00163D36 /* yytracer.cpp in Sources */,
 				C0A0564F201373BE00163D36 /* propagation.cpp in Sources */,
-				C0A056B12015ED6900163D36 /* yyop.cpp in Sources */,
+				C0A056C52016E52D00163D36 /* in_memory_stream.cpp in Sources */,
 				C0A0564E201373BE00163D36 /* noop.cpp in Sources */,
+				C0A056C12016E45600163D36 /* ypropagation.cpp in Sources */,
+				C0A056CD2016E62100163D36 /* ytracer.cpp in Sources */,
+				C0A056BE2016CF5700163D36 /* lightstep_span_context.cpp in Sources */,
+				C0A056D120171DCE00163D36 /* base64.cpp in Sources */,
+				C0A056CA2016E58A00163D36 /* lightstep_tracer_impl.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -562,50 +614,60 @@
 		C0A056312013716B00163D36 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/opentracing/src";
 				INFOPLIST_FILE = opentracing/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_CFLAGS = (
 					"-isystem",
 					"\"${SRCROOT}/3rd_party/include\"",
+					"-I",
+					"${SRCROOT}/src",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = yy.opentracing;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = "";
 				SYSTEM_HEADER_SEARCH_PATHS = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
 		C0A056322013716B00163D36 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/opentracing/src";
 				INFOPLIST_FILE = opentracing/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_CFLAGS = (
 					"-isystem",
 					"\"${SRCROOT}/3rd_party/include\"",
+					"-I",
+					"${SRCROOT}/src",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = yy.opentracing;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = "";
 				SYSTEM_HEADER_SEARCH_PATHS = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};

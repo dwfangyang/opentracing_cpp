@@ -108,8 +108,8 @@ class Tracer {
   //
   // If `writer` is an `std::ostream`, then Inject() propagates `sc` as a blob
   // of binary data.
-  virtual expected<void> Inject(const SpanContext& sc,
-                                std::ostream& writer) const = 0;
+//  virtual expected<void> Inject(const SpanContext& sc,
+//                                std::ostream& writer) const = 0;
 
   virtual expected<void> Inject(const SpanContext& sc,
                                 const TextMapWriter& writer) const = 0;
@@ -130,8 +130,8 @@ class Tracer {
   // is found; otherwise an std::error_code.
   //
   // Throws only if `reader` does.
-  virtual expected<std::unique_ptr<SpanContext>> Extract(
-      std::istream& reader) const = 0;
+//  virtual expected<std::unique_ptr<SpanContext>> Extract(
+//      std::istream& reader) const = 0;
 
   virtual expected<std::unique_ptr<SpanContext>> Extract(
       const TextMapReader& reader) const = 0;

@@ -16,7 +16,7 @@ namespace opentracing {
         public:
             void ForeachBaggageItem(
                                     std::function<bool(const std::string& key,
-                                                       const std::string& value)> /*f*/) const override
+                                                       const std::string& value)> f) const override
             {
                 
             }
@@ -95,7 +95,7 @@ namespace opentracing {
         };
     }  // anonymous namespace
     
-    std::shared_ptr<Tracer> MakeYYopTracer() noexcept {
+    std::shared_ptr<Tracer> MakeYTracer() noexcept {
         return std::shared_ptr<Tracer>(new (std::nothrow) YTracer());
     }
     END_OPENTRACING_ABI_NAMESPACE
