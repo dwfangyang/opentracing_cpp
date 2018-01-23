@@ -82,7 +82,7 @@ static bool SetSpanReference(
 //------------------------------------------------------------------------------
 // Constructor
 //------------------------------------------------------------------------------
-LightStepSpan::LightStepSpan(
+YSpan::YSpan(
     std::shared_ptr<const opentracing::Tracer>&& tracer, /*Logger& logger,
     Recorder& recorder,*/ opentracing::string_view operation_name,
     const opentracing::StartSpanOptions& options)
@@ -121,7 +121,7 @@ LightStepSpan::LightStepSpan(
 //------------------------------------------------------------------------------
 // Destructor
 //------------------------------------------------------------------------------
-LightStepSpan::~LightStepSpan() {
+YSpan::~YSpan() {
   if (!is_finished_) {
     Finish();
   }
@@ -130,7 +130,7 @@ LightStepSpan::~LightStepSpan() {
 //------------------------------------------------------------------------------
 // FinishWithOptions
 //------------------------------------------------------------------------------
-void LightStepSpan::FinishWithOptions(
+void YSpan::FinishWithOptions(
     const opentracing::FinishSpanOptions& options) noexcept try {
   // Ensure the span is only finished once.
   if (is_finished_.exchange(true)) {
@@ -141,6 +141,7 @@ void LightStepSpan::FinishWithOptions(
   if (finish_timestamp == SteadyTime()) {
     finish_timestamp = SteadyClock::now();
   }
+  finish_steady_ = finish_timestamp;
 
 //  collector::Span span;
 //
@@ -163,18 +164,18 @@ void LightStepSpan::FinishWithOptions(
 //    span.set_operation_name(std::move(operation_name_));
 //    auto tags = span.mutable_tags();
 //    tags->Reserve(static_cast<int>(tags_.size()));
-////    for (const auto& tag : tags_) {
-////      try {
-////        *tags->Add() = ToKeyValue(tag.first, tag.second);
-////      } catch (const std::exception& e) {
-//////        logger_.Error(R"(Dropping tag for key ")", tag.first,
-//////                      R"(": )", e.what());
-////      }
-////    }
-////    auto logs = span.mutable_logs();
-////    for (auto& log : logs_) {
-////      *logs->Add() = log;
-////    }
+//    for (const auto& tag : tags_) {
+//      try {
+//        *tags->Add() = ToKeyValue(tag.first, tag.second);
+//      } catch (const std::exception& e) {
+////        logger_.Error(R"(Dropping tag for key ")", tag.first,
+////                      R"(": )", e.what());
+//      }
+//    }
+//    auto logs = span.mutable_logs();
+//    for (auto& log : logs_) {
+//      *logs->Add() = log;
+//    }
 //  }
 //
 //  // Set the span context.
@@ -198,7 +199,7 @@ void LightStepSpan::FinishWithOptions(
 //------------------------------------------------------------------------------
 // SetOperationName
 //------------------------------------------------------------------------------
-void LightStepSpan::SetOperationName(
+void YSpan::SetOperationName(
     opentracing::string_view name) noexcept try {
   std::lock_guard<std::mutex> lock_guard{mutex_};
   operation_name_ = name;
@@ -209,7 +210,7 @@ void LightStepSpan::SetOperationName(
 //------------------------------------------------------------------------------
 // SetTag
 //------------------------------------------------------------------------------
-void LightStepSpan::SetTag(opentracing::string_view key,
+void YSpan::SetTag(opentracing::string_view key,
                            const opentracing::Value& value) noexcept try {
   std::lock_guard<std::mutex> lock_guard{mutex_};
   tags_[key] = value;
@@ -220,7 +221,7 @@ void LightStepSpan::SetTag(opentracing::string_view key,
 //------------------------------------------------------------------------------
 // SetBaggageItem
 //------------------------------------------------------------------------------
-void LightStepSpan::SetBaggageItem(opentracing::string_view restricted_key,
+void YSpan::SetBaggageItem(opentracing::string_view restricted_key,
                                    opentracing::string_view value) noexcept {
   span_context_.set_baggage_item(restricted_key, value);
 }
@@ -228,7 +229,7 @@ void LightStepSpan::SetBaggageItem(opentracing::string_view restricted_key,
 //------------------------------------------------------------------------------
 // BaggageItem
 //------------------------------------------------------------------------------
-std::string LightStepSpan::BaggageItem(
+std::string YSpan::BaggageItem(
     opentracing::string_view restricted_key) const noexcept try {
   return span_context_.baggage_item(restricted_key);
 } catch (const std::exception& e) {
@@ -239,15 +240,18 @@ std::string LightStepSpan::BaggageItem(
 //------------------------------------------------------------------------------
 // Log
 //------------------------------------------------------------------------------
-void LightStepSpan::Log(std::initializer_list<
+void YSpan::Log(std::initializer_list<
                         std::pair<opentracing::string_view, opentracing::Value>>
                             fields) noexcept try {
   auto timestamp = SystemClock::now();
+  LogItem log;
+  log.timestamp = timestamp;
 //  collector::Log log;
 //  *log.mutable_timestamp() = ToTimestamp(timestamp);
 //  auto key_values = log.mutable_fields();
   for (const auto& field : fields) {
     try {
+        log.fields.emplace_back(field);
 //      *key_values->Add() = ToKeyValue(field.first, field.second);
     } catch (const std::exception& e) {
 //      logger_.Error(R"(Failed to log record for key ")", field.first, R"(": )",

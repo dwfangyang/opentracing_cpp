@@ -5,6 +5,7 @@
 #include <atomic>
 #include <mutex>
 #include <vector>
+#include <opentracing/util.h>
 //#include "lightstep-tracer-common/collector.pb.h"
 #include "lightstep_span_context.h"
 //#include "logger.h"
@@ -18,25 +19,26 @@ public:
     uint64_t spanid;
     opentracing::SpanReferenceType type;
 };
-    
-class Log{
+//Log
+class LogItem{
 public:
-    
+    opentracing::SystemTime timestamp;
+    std::vector<std::pair<opentracing::string_view, opentracing::Value>> fields;
 };
     
-class LightStepSpan : public opentracing::Span {
+class YSpan : public opentracing::Span {
  public:
-  LightStepSpan(std::shared_ptr<const opentracing::Tracer>&& tracer,
+  YSpan(std::shared_ptr<const opentracing::Tracer>&& tracer,
                 /*Logger& logger, Recorder& recorder,*/
                 opentracing::string_view operation_name,
                 const opentracing::StartSpanOptions& options);
 
-  LightStepSpan(const LightStepSpan&) = delete;
-  LightStepSpan(LightStepSpan&&) = delete;
-  LightStepSpan& operator=(const LightStepSpan&) = delete;
-  LightStepSpan& operator=(LightStepSpan&&) = delete;
+  YSpan(const YSpan&) = delete;
+  YSpan(YSpan&&) = delete;
+  YSpan& operator=(const YSpan&) = delete;
+  YSpan& operator=(YSpan&&) = delete;
 
-  ~LightStepSpan() override;
+  ~YSpan() override;
 
   void FinishWithOptions(
       const opentracing::FinishSpanOptions& options) noexcept override;
@@ -71,6 +73,7 @@ class LightStepSpan : public opentracing::Span {
   std::vector<Reference> references_;
   std::chrono::system_clock::time_point start_timestamp_;
   std::chrono::steady_clock::time_point start_steady_;
+  std::chrono::steady_clock::time_point finish_steady_;
   LightStepSpanContext span_context_;
 
   std::atomic<bool> is_finished_{false};
@@ -79,6 +82,6 @@ class LightStepSpan : public opentracing::Span {
   std::mutex mutex_;
   std::string operation_name_;
   std::unordered_map<std::string, opentracing::Value> tags_;
-//  std::vector<Log> logs_;
+  std::vector<LogItem> logs_;
 };
 }  // namespace lightstep

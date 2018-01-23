@@ -69,7 +69,7 @@ LightStepTracerImpl::LightStepTracerImpl(
 std::unique_ptr<opentracing::Span> LightStepTracerImpl::StartSpanWithOptions(
     opentracing::string_view operation_name,
     const opentracing::StartSpanOptions& options) const noexcept try {
-  return std::unique_ptr<opentracing::Span>{new LightStepSpan{
+  return std::unique_ptr<opentracing::Span>{new YSpan{
       shared_from_this(),/* *logger_, *recorder_,*/ operation_name, options}};
 } catch (const std::exception& e) {
 //  logger_->Error("StartSpanWithOptions failed: ", e.what());
