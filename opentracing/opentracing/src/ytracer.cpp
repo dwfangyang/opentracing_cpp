@@ -18,7 +18,7 @@
 //#include "manual_recorder.h"
 //#include "utility.h"
 
-namespace lightstep {
+namespace YYOT {
 const opentracing::string_view component_name_key = "lightstep.component_name";
 const opentracing::string_view collector_service_full_name =
     "lightstep.collector.CollectorService";

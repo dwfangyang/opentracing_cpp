@@ -6,7 +6,7 @@
 //#include "recorder.h"
 #include "ytracer.h"
 
-namespace lightstep {
+namespace YYOT {
 class LightStepTracerImpl
     : public LightStepTracer,
       public std::enable_shared_from_this<LightStepTracerImpl> {

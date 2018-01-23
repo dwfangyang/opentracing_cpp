@@ -7,7 +7,7 @@
 #include <unordered_map>
 #include "ypropagation.h"
 
-namespace lightstep {
+namespace YYOT {
 class LightStepSpanContext : public opentracing::SpanContext {
  public:
   LightStepSpanContext() = default;

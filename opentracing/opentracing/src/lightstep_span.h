@@ -11,7 +11,7 @@
 //#include "logger.h"
 //#include "recorder.h"
 
-namespace lightstep {
+namespace YYOT {
 //Reference
 class Reference{
 public:

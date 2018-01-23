@@ -6,7 +6,7 @@ using opentracing::SystemClock;
 using opentracing::SteadyClock;
 using opentracing::SteadyTime;
 
-namespace lightstep {
+namespace YYOT {
 //------------------------------------------------------------------------------
 // ComputeStartTimestamps
 //------------------------------------------------------------------------------

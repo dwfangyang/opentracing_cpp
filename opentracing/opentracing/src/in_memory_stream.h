@@ -3,7 +3,7 @@
 #include <istream>
 #include <streambuf>
 
-namespace lightstep {
+namespace YYOT {
 // Classes to allow construction of an istream from constant memory without
 // copying. See https://stackoverflow.com/a/13059195/4447365.
 class in_memory_buffer : public std::streambuf {

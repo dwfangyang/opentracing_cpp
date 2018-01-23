@@ -10,7 +10,7 @@
 #include <memory>
 #include <unordered_map>
 
-namespace lightstep {
+namespace YYOT {
 
 const std::string& CollectorServiceFullName();
 

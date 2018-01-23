@@ -2,7 +2,7 @@
 #include "lightstep_span.h"
 #include "lightstep_span_context.h"
 
-namespace lightstep {
+namespace YYOT {
 
 //------------------------------------------------------------------------------
 // InjectImpl

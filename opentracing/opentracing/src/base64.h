@@ -3,7 +3,7 @@
 #include <cstdint>
 #include <string>
 
-namespace lightstep {
+namespace YYOT {
 class Base64 {
 public:
   /**

@@ -3,7 +3,7 @@
 #include <cstdint>
 #include <string>
 
-namespace lightstep {
+namespace YYOT {
 static constexpr char CHAR_TABLE[] =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 

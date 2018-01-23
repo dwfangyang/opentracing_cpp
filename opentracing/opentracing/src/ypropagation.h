@@ -13,7 +13,7 @@
 #include <opentracing/propagation.h>
 #include <unordered_map>
 
-namespace lightstep {
+namespace YYOT {
     struct PropagationOptions {
         bool use_single_key = false;
     };

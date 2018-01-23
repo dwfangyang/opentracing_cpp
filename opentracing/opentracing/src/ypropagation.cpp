@@ -18,7 +18,7 @@
 #include "in_memory_stream.h"
 //#include "lightstep-tracer-common/lightstep_carrier.pb.h"
 
-namespace lightstep {
+namespace YYOT {
 #define PREFIX_TRACER_STATE "ot-tracer-"
     // Note: these constants are a convention of the OpenTracing basictracers.
     const opentracing::string_view PrefixBaggage = "ot-baggage-";
