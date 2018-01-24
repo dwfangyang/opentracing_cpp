@@ -115,11 +115,11 @@ struct YTracerOptions {
 // direct access to a span context's data so as to propagate more efficiently.
 class YTracer : public opentracing::Tracer {
  public:
-  opentracing::expected<std::array<uint64_t, 2>> GetTraceSpanIds(
+  opentracing::expected<std::array<std::string, 2>> GetTraceSpanIds(
       const opentracing::SpanContext& span_context) const noexcept;
 
   opentracing::expected<std::unique_ptr<opentracing::SpanContext>>
-  MakeSpanContext(uint64_t trace_id, uint64_t span_id,
+  MakeSpanContext(std::string trace_id, std::string span_id,
                   std::unordered_map<std::string, std::string>&& baggage) const
       noexcept;
 

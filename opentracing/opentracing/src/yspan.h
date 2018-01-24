@@ -17,8 +17,8 @@ namespace YYOT {
 //Reference
 class Reference{
 public:
-    uint64_t traceid;
-    uint64_t spanid;
+    std::string traceid;
+    std::string spanid;
     opentracing::SpanReferenceType type;
 };
 //Log

@@ -58,7 +58,7 @@ const std::string& CollectorMethodName() {
 //------------------------------------------------------------------------------
 // GetTraceSpanIds
 //------------------------------------------------------------------------------
-opentracing::expected<std::array<uint64_t, 2>> YTracer::GetTraceSpanIds(
+opentracing::expected<std::array<std::string, 2>> YTracer::GetTraceSpanIds(
     const opentracing::SpanContext& span_context) const noexcept {
   auto y_span_context =
       dynamic_cast<const YSpanContext*>(&span_context);
@@ -66,7 +66,7 @@ opentracing::expected<std::array<uint64_t, 2>> YTracer::GetTraceSpanIds(
     return opentracing::make_unexpected(
         opentracing::invalid_span_context_error);
   }
-  std::array<uint64_t, 2> result = {
+  std::array<std::string, 2> result = {
       {y_span_context->trace_id(), y_span_context->span_id()}};
   return result;
 }
@@ -76,7 +76,7 @@ opentracing::expected<std::array<uint64_t, 2>> YTracer::GetTraceSpanIds(
 //------------------------------------------------------------------------------
 opentracing::expected<std::unique_ptr<opentracing::SpanContext>>
 YTracer::MakeSpanContext(
-    uint64_t trace_id, uint64_t span_id,
+    std::string trace_id, std::string span_id,
     std::unordered_map<std::string, std::string>&& baggage) const noexcept try {
   std::unique_ptr<opentracing::SpanContext> result{
       new YSpanContext{trace_id, span_id, std::move(baggage)}};

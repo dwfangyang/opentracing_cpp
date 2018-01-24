@@ -13,7 +13,7 @@ class YSpanContext : public opentracing::SpanContext {
   YSpanContext() = default;
 
   YSpanContext(
-      uint64_t trace_id, uint64_t span_id,
+      std::string trace_id, std::string span_id,
       std::unordered_map<std::string, std::string>&& baggage) noexcept;
 
   YSpanContext(const YSpanContext&) = delete;
@@ -49,12 +49,12 @@ class YSpanContext : public opentracing::SpanContext {
                               baggage_);
   }
 
-  uint64_t trace_id() const noexcept { return trace_id_; }
-  uint64_t span_id() const noexcept { return span_id_; }
+  std::string trace_id() const noexcept { return trace_id_; }
+  std::string span_id() const noexcept { return span_id_; }
 
  private:
-  uint64_t trace_id_ = 0;
-  uint64_t span_id_ = 0;
+  std::string trace_id_ = "";
+  std::string span_id_ = "";
 
   mutable std::mutex baggage_mutex_;
   std::unordered_map<std::string, std::string> baggage_;

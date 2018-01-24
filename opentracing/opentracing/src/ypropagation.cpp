@@ -87,13 +87,13 @@ namespace YYOT {
     // InjectSpanContextMultiKey
     //------------------------------------------------------------------------------
     static opentracing::expected<void> InjectSpanContextMultiKey(
-                                                                 const opentracing::TextMapWriter& carrier, uint64_t trace_id,
-                                                                 uint64_t span_id,
+                                                                 const opentracing::TextMapWriter& carrier, std::string trace_id,
+                                                                 std::string span_id,
                                                                  const std::unordered_map<std::string, std::string>& baggage) {
         std::string trace_id_hex, span_id_hex, baggage_key;
         try {
-            trace_id_hex = Uint64ToHex(trace_id);
-            span_id_hex = Uint64ToHex(span_id);
+            trace_id_hex = std::move(trace_id);// Uint64ToHex(trace_id);
+            span_id_hex = std::move(span_id);//Uint64ToHex(span_id);
             baggage_key = PrefixBaggage;
         } catch (const std::bad_alloc&) {
             return opentracing::make_unexpected(
@@ -205,8 +205,8 @@ namespace YYOT {
     
     opentracing::expected<void> InjectSpanContext(
                                                   const PropagationOptions& propagation_options,
-                                                  const opentracing::TextMapWriter& carrier, uint64_t trace_id,
-                                                  uint64_t span_id,
+                                                  const opentracing::TextMapWriter& carrier, std::string trace_id,
+                                                  std::string span_id,
                                                   const std::unordered_map<std::string, std::string>& baggage) {
 //        if (propagation_options.use_single_key) {
 //            return InjectSpanContextSingleKey(carrier, trace_id, span_id, baggage);
@@ -221,8 +221,8 @@ namespace YYOT {
     //------------------------------------------------------------------------------
     template <class KeyCompare>
     static opentracing::expected<bool> ExtractSpanContextMultiKey(
-                                                                  const opentracing::TextMapReader& carrier, uint64_t& trace_id,
-                                                                  uint64_t& span_id, std::unordered_map<std::string, std::string>& baggage,
+                                                                  const opentracing::TextMapReader& carrier, std::string& trace_id,
+                                                                  std::string& span_id, std::unordered_map<std::string, std::string>& baggage,
                                                                   KeyCompare key_compare) {
         int count = 0;
         auto result = carrier.ForeachKey(
@@ -346,8 +346,8 @@ namespace YYOT {
     template <class KeyCompare>
     static opentracing::expected<bool> ExtractSpanContext(
                                                           const PropagationOptions& propagation_options,
-                                                          const opentracing::TextMapReader& carrier, uint64_t& trace_id,
-                                                          uint64_t& span_id, std::unordered_map<std::string, std::string>& baggage,
+                                                          const opentracing::TextMapReader& carrier, std::string& trace_id,
+                                                          std::string& span_id, std::unordered_map<std::string, std::string>& baggage,
                                                           KeyCompare key_compare) {
 //        if (propagation_options.use_single_key) {
 //            return ExtractSpanContextSingleKey(carrier, trace_id, span_id, baggage,
@@ -361,8 +361,8 @@ namespace YYOT {
     
     opentracing::expected<bool> ExtractSpanContext(
                                                    const PropagationOptions& propagation_options,
-                                                   const opentracing::TextMapReader& carrier, uint64_t& trace_id,
-                                                   uint64_t& span_id, std::unordered_map<std::string, std::string>& baggage) {
+                                                   const opentracing::TextMapReader& carrier, std::string& trace_id,
+                                                   std::string& span_id, std::unordered_map<std::string, std::string>& baggage) {
         return ExtractSpanContext(propagation_options, carrier, trace_id, span_id,
                                   baggage, std::equal_to<opentracing::string_view>());
     }
@@ -373,8 +373,8 @@ namespace YYOT {
     // See https://stackoverflow.com/a/5259004/4447365
     opentracing::expected<bool> ExtractSpanContext(
                                                    const PropagationOptions& propagation_options,
-                                                   const opentracing::HTTPHeadersReader& carrier, uint64_t& trace_id,
-                                                   uint64_t& span_id, std::unordered_map<std::string, std::string>& baggage) {
+                                                   const opentracing::HTTPHeadersReader& carrier, std::string& trace_id,
+                                                   std::string& span_id, std::unordered_map<std::string, std::string>& baggage) {
         auto iequals = [](opentracing::string_view lhs,
                           opentracing::string_view rhs) {
             return lhs.length() == rhs.length() &&

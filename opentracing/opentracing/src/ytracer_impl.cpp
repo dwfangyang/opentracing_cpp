@@ -1,6 +1,8 @@
 #include "ytracer_impl.h"
 #include "yspan.h"
 #include "yspan_context.h"
+#include <rapidjson/writer.h>
+#include <rapidjson/stringbuffer.h>
 
 namespace YYOT {
 
@@ -69,8 +71,9 @@ YTracerImpl::YTracerImpl(
 std::unique_ptr<opentracing::Span> YTracerImpl::StartSpanWithOptions(
     opentracing::string_view operation_name,
     const opentracing::StartSpanOptions& options) const noexcept try {
-  return std::unique_ptr<opentracing::Span>{new YSpan{
+  std::unique_ptr<opentracing::Span> yspan{new YSpan{
       shared_from_this(),/* *logger_, *recorder_,*/ operation_name, options}};
+  return yspan;
 } catch (const std::exception& e) {
 //  logger_->Error("StartSpanWithOptions failed: ", e.what());
   return nullptr;
@@ -127,11 +130,31 @@ bool YTracerImpl::Flush() noexcept {
 //------------------------------------------------------------------------------
 void YTracerImpl::Close() noexcept {
     Flush();
-    
+    rapidjson::StringBuffer sb;
+    rapidjson::Writer<rapidjson::StringBuffer> writer(sb);
+    writer.StartObject();
+    writer.Key("traceid");
+    writer.String(traceid_.c_str());
+    if( spanjsons_.size() )
+    {
+        writer.Key("spans");
+        for( auto json : spanjsons_ )
+        {
+            writer.String(json.c_str());
+        }
+    }
+    writer.EndObject();
+    std::string s = sb.GetString();
+//    return s;
 }
 
-void YTracerImpl::enqueueSpanJson(std::string spanjson) const
+void YTracerImpl::enqueueSpanJson(std::string spanjson)
 {
-//    spanjsons_.emplace_back();
+    spanjsons_.emplace_back(spanjson);
+}
+
+void YTracerImpl::setTraceid(std::string traceid)
+{
+    traceid_ = traceid;
 }
 }  // namespace YYOT

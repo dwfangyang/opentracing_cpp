@@ -49,12 +49,15 @@ class YTracerImpl
 
   void Close() noexcept override;
   
-  void enqueueSpanJson(std::string spanjson) const;
+  void enqueueSpanJson(std::string spanjson);
+          
+  void setTraceid(std::string);
 
  private:
 //  std::shared_ptr<Logger> logger_;
   PropagationOptions propagation_options_;
 //  std::unique_ptr<Recorder> recorder_;
   std::vector<std::string> spanjsons_;
+  std::string                traceid_;
 };
 }  // namespace lightstep

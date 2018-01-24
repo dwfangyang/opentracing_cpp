@@ -25,8 +25,8 @@ namespace YYOT {
     
     opentracing::expected<void> InjectSpanContext(
                                                   const PropagationOptions& propagation_options,
-                                                  const opentracing::TextMapWriter& carrier, uint64_t trace_id,
-                                                  uint64_t span_id,
+                                                  const opentracing::TextMapWriter& carrier, std::string trace_id,
+                                                  std::string span_id,
                                                   const std::unordered_map<std::string, std::string>& baggage);
     
 //    opentracing::expected<bool> ExtractSpanContext(
@@ -36,8 +36,8 @@ namespace YYOT {
     
     opentracing::expected<bool> ExtractSpanContext(
                                                    const PropagationOptions& propagation_options,
-                                                   const opentracing::TextMapReader& carrier, uint64_t& trace_id,
-                                                   uint64_t& span_id, std::unordered_map<std::string, std::string>& baggage);
+                                                   const opentracing::TextMapReader& carrier, std::string& trace_id,
+                                                   std::string& span_id, std::unordered_map<std::string, std::string>& baggage);
     
 //    opentracing::expected<bool> ExtractSpanContext(
 //                                                   const PropagationOptions& propagation_options,

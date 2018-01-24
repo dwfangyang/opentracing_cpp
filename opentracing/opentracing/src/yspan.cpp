@@ -2,6 +2,7 @@
 //#include "utility.h"
 #include <rapidjson/stringbuffer.h>
 #include "ytracer_impl.h"
+#include <uuid/uuid.h>
 
 using opentracing::SystemTime;
 using opentracing::SystemClock;
@@ -81,6 +82,14 @@ static bool SetSpanReference(
   return true;
 }
 
+    std::string GenerateId()
+{
+    unsigned char uuid[17] = {0};
+    uuid_generate_random(uuid);
+    std::string str((char*)uuid,16);
+    return str;
+}
+
 //------------------------------------------------------------------------------
 // Constructor
 //------------------------------------------------------------------------------
@@ -111,12 +120,17 @@ YSpan::YSpan(
   for (auto& tag : options.tags) {
     tags_[tag.first] = tag.second;
   }
-
+          
   // Set opentracing::SpanContext.
   auto trace_id = references_.empty()
-                      ? 8398899328u//GenerateId()
+                      ? GenerateId()
                       : references_[0].traceid;
-  auto span_id = 893289u;//GenerateId();
+  auto span_id = GenerateId();
+  if( !references_.size() )
+  {
+      auto& ytracer = const_cast<YTracerImpl&>(dynamic_cast<const YTracerImpl&>(*tracer_));
+      ytracer.setTraceid(trace_id);
+  }
   span_context_ = YSpanContext{trace_id, span_id, std::move(baggage)};
 }
 
@@ -145,7 +159,7 @@ void YSpan::FinishWithOptions(
   }
   duration_ = finish_timestamp-start_steady_;
   
-  auto& ytracer = dynamic_cast<const YTracerImpl&>(tracer());
+  auto& ytracer = const_cast<YTracerImpl&>(dynamic_cast<const YTracerImpl&>(tracer()));
   ytracer.enqueueSpanJson(toJson());
 //  collector::Span span;
 //
@@ -274,7 +288,7 @@ const std::string YSpan::toJson() const
     rapidjson::Writer<rapidjson::StringBuffer> writer(strbuf);
     writer.StartObject();
     writer.Key("spanid");
-    writer.Uint64(span_context_.span_id());
+    writer.String(span_context_.span_id().c_str());
     writer.Key("starttime");
     writer.Uint64(std::chrono::system_clock::to_time_t(start_timestamp_));
     writer.Key("duration");
@@ -282,7 +296,7 @@ const std::string YSpan::toJson() const
     writer.Key("operationname");
     writer.String(operation_name_.c_str());
     writer.Key("traceid");
-    writer.Uint64(span_context_.trace_id());
+    writer.String(span_context_.trace_id().c_str());
     if ( logs_.size() ) {
         writer.Key("logs");
         writer.StartArray();
@@ -339,9 +353,9 @@ void YSpan::writeReference(rapidjson::Writer<rapidjson::StringBuffer>& writer,co
 {
     writer.StartObject();
     writer.Key("spanid");
-    writer.Uint64(ref.spanid);
+    writer.String(ref.spanid.c_str());
     writer.Key("traceid");
-    writer.Uint64(ref.spanid);
+    writer.String(ref.traceid.c_str());
     writer.Key("reftype");
     std::string type;
     if ( ref.type == opentracing::SpanReferenceType::ChildOfRef ) {

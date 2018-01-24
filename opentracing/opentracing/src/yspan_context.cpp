@@ -5,7 +5,7 @@ namespace YYOT {
 // Constructor
 //------------------------------------------------------------------------------
 YSpanContext::YSpanContext(
-    uint64_t trace_id, uint64_t span_id,
+    std::string trace_id, std::string span_id,
     std::unordered_map<std::string, std::string>&& baggage) noexcept
     : trace_id_{trace_id}, span_id_{span_id}, baggage_{std::move(baggage)} {}
 
