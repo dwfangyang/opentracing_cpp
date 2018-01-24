@@ -59,4 +59,4 @@ class YSpanContext : public opentracing::SpanContext {
   mutable std::mutex baggage_mutex_;
   std::unordered_map<std::string, std::string> baggage_;
 };
-}  // namespace lightstep
+}  // namespace YYOT

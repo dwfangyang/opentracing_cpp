@@ -71,6 +71,7 @@
 		C0A056CE2016E62100163D36 /* ytracer.h in Headers */ = {isa = PBXBuildFile; fileRef = C0A056CC2016E62000163D36 /* ytracer.h */; };
 		C0A056D120171DCE00163D36 /* base64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C0A056CF20171DCE00163D36 /* base64.cpp */; };
 		C0A056D220171DCE00163D36 /* base64.h in Headers */ = {isa = PBXBuildFile; fileRef = C0A056D020171DCE00163D36 /* base64.h */; };
+		C0A05BC72018355200163D36 /* text_map_carrier.h in Headers */ = {isa = PBXBuildFile; fileRef = C0A05BC62018355100163D36 /* text_map_carrier.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -140,10 +141,7 @@
 		C0A056CC2016E62000163D36 /* ytracer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ytracer.h; sourceTree = "<group>"; };
 		C0A056CF20171DCE00163D36 /* base64.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = base64.cpp; sourceTree = "<group>"; };
 		C0A056D020171DCE00163D36 /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
-		C0A05B8C2017486400163D36 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		C0A05B8E20174B1D00163D36 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
-		C0A05B9020174B3200163D36 /* libc.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libc.tbd; path = usr/lib/libc.tbd; sourceTree = SDKROOT; };
-		C0A05B9220174B8000163D36 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		C0A05BC62018355100163D36 /* text_map_carrier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = text_map_carrier.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +188,7 @@
 		C0A05633201373BE00163D36 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				C0A05BC62018355100163D36 /* text_map_carrier.h */,
 				C0A056CF20171DCE00163D36 /* base64.cpp */,
 				C0A056D020171DCE00163D36 /* base64.h */,
 				C0A056CB2016E62000163D36 /* ytracer.cpp */,
@@ -345,10 +344,6 @@
 		C0A05B8B2017486300163D36 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C0A05B9220174B8000163D36 /* CoreFoundation.framework */,
-				C0A05B9020174B3200163D36 /* libc.tbd */,
-				C0A05B8E20174B1D00163D36 /* libc++.tbd */,
-				C0A05B8C2017486400163D36 /* libz.tbd */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -361,6 +356,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0A0569C2015BEA000163D36 /* stack.h in Headers */,
+				C0A05BC72018355200163D36 /* text_map_carrier.h in Headers */,
 				C0A0569B2015BEA000163D36 /* regex.h in Headers */,
 				C0A056932015BEA000163D36 /* fwd.h in Headers */,
 				C0A0568E2015BEA000163D36 /* encodings.h in Headers */,

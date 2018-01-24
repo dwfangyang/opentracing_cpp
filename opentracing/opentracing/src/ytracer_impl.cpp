@@ -126,4 +126,4 @@ bool YTracerImpl::Flush() noexcept {
 // Close
 //------------------------------------------------------------------------------
 void YTracerImpl::Close() noexcept { Flush(); }
-}  // namespace lightstep
+}  // namespace YYOT

@@ -57,4 +57,4 @@ void YSpanContext::ForeachBaggageItem(
     }
   }
 }
-}  // namespace lightstep
+}  // namespace YYOT

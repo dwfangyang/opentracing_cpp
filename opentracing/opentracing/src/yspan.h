@@ -84,4 +84,4 @@ class YSpan : public opentracing::Span {
   std::unordered_map<std::string, opentracing::Value> tags_;
   std::vector<LogItem> logs_;
 };
-}  // namespace lightstep
+}  // namespace YYOT

@@ -15,4 +15,4 @@ class in_memory_stream : virtual public in_memory_buffer, public std::istream {
  public:
   in_memory_stream(const char* data, size_t size);
 };
-}  // namespace lightstep
+}  // namespace YYOT

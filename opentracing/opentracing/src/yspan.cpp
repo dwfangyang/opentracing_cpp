@@ -262,4 +262,4 @@ void YSpan::Log(std::initializer_list<
 } catch (const std::exception& e) {
 //  logger_.Error("Log failed: ", e.what());
 }
-}  // namespace lightstep
+}  // namespace YYOT

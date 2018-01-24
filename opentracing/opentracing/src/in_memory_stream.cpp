@@ -16,4 +16,4 @@ in_memory_buffer::in_memory_buffer(const char* data, size_t size) {
 in_memory_stream::in_memory_stream(const char* data, size_t size)
     : in_memory_buffer{data, size},
       std::istream{static_cast<std::streambuf*>(this)} {}
-}  // namespace lightstep
+}  // namespace YYOT
