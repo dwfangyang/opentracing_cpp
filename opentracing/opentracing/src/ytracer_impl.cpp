@@ -125,5 +125,13 @@ bool YTracerImpl::Flush() noexcept {
 //------------------------------------------------------------------------------
 // Close
 //------------------------------------------------------------------------------
-void YTracerImpl::Close() noexcept { Flush(); }
+void YTracerImpl::Close() noexcept {
+    Flush();
+    
+}
+
+void YTracerImpl::enqueueSpanJson(std::string spanjson) const
+{
+//    spanjsons_.emplace_back();
+}
 }  // namespace YYOT

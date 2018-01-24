@@ -1,6 +1,8 @@
 #pragma once
 
 #include <memory>
+#include <vector>
+#include <string>
 //#include "logger.h"
 #include "ypropagation.h"
 //#include "recorder.h"
@@ -46,10 +48,13 @@ class YTracerImpl
   bool Flush() noexcept override;
 
   void Close() noexcept override;
+  
+  void enqueueSpanJson(std::string spanjson) const;
 
  private:
 //  std::shared_ptr<Logger> logger_;
   PropagationOptions propagation_options_;
 //  std::unique_ptr<Recorder> recorder_;
+  std::vector<std::string> spanjsons_;
 };
 }  // namespace lightstep

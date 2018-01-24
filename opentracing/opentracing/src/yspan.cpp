@@ -1,5 +1,7 @@
 #include "yspan.h"
 //#include "utility.h"
+#include <rapidjson/stringbuffer.h>
+#include "ytracer_impl.h"
 
 using opentracing::SystemTime;
 using opentracing::SystemClock;
@@ -141,8 +143,10 @@ void YSpan::FinishWithOptions(
   if (finish_timestamp == SteadyTime()) {
     finish_timestamp = SteadyClock::now();
   }
-  finish_steady_ = finish_timestamp;
-
+  duration_ = finish_timestamp-start_steady_;
+  
+  auto& ytracer = dynamic_cast<const YTracerImpl&>(tracer());
+  ytracer.enqueueSpanJson(toJson());
 //  collector::Span span;
 //
 //  // Set timing information.
@@ -258,8 +262,165 @@ void YSpan::Log(std::initializer_list<
 //                    e.what());
     }
   }
-//  logs_.emplace_back(std::move(log));
+  logs_.emplace_back(std::move(log));
 } catch (const std::exception& e) {
 //  logger_.Error("Log failed: ", e.what());
+}
+    
+//span 转换为json字符串
+const std::string YSpan::toJson() const
+{
+    rapidjson::StringBuffer strbuf;
+    rapidjson::Writer<rapidjson::StringBuffer> writer(strbuf);
+    writer.StartObject();
+    writer.Key("spanid");
+    writer.Uint64(span_context_.span_id());
+    writer.Key("starttime");
+    writer.Uint64(std::chrono::system_clock::to_time_t(start_timestamp_));
+    writer.Key("duration");
+    writer.Uint64(std::chrono::duration_cast<std::chrono::microseconds>(duration_).count());
+    writer.Key("operationname");
+    writer.String(operation_name_.c_str());
+    writer.Key("traceid");
+    writer.Uint64(span_context_.trace_id());
+    if ( logs_.size() ) {
+        writer.Key("logs");
+        writer.StartArray();
+        for ( auto log :logs_ )
+        {
+            writer.StartObject();
+            writer.Key("timestamp");
+            auto tp = std::chrono::system_clock::to_time_t(log.timestamp);
+            writer.Uint64(tp);
+            for ( auto value : log.fields )
+            {
+                writer.Key(value.first.data());
+                writeValue(writer,value.second);
+            }
+            writer.EndObject();
+        }
+        writer.EndArray();
+    }
+    if( tags_.size() )
+    {
+        writer.Key("tags");
+        writer.StartObject();
+        for ( auto tag : tags_ )
+        {
+            writer.Key(tag.first.data());
+            writeValue(writer, tag.second);
+        }
+        writer.EndObject();
+    }
+    size_t refcount = references_.size();
+    if( refcount > 0 )
+    {
+        writer.Key("reference");
+        if( refcount == 1 )
+        {
+            writeReference(writer, references_[0]);
+        }
+        else
+        {
+            writer.StartArray();
+            for ( auto ref : references_ )
+            {
+                writeReference(writer, ref);
+            }
+            writer.EndArray();
+        }
+    }
+    writer.EndObject();
+    std::string s = std::move(strbuf.GetString());
+    return s;
+}
+    
+void YSpan::writeReference(rapidjson::Writer<rapidjson::StringBuffer>& writer,const Reference& ref) const
+{
+    writer.StartObject();
+    writer.Key("spanid");
+    writer.Uint64(ref.spanid);
+    writer.Key("traceid");
+    writer.Uint64(ref.spanid);
+    writer.Key("reftype");
+    std::string type;
+    if ( ref.type == opentracing::SpanReferenceType::ChildOfRef ) {
+        type = "CHILD_OF";
+    }
+    else if( ref.type == opentracing::SpanReferenceType::FollowsFromRef ) {
+        type = "FOLLOWS_FROM";
+    }
+    writer.String(type.c_str());
+    writer.EndObject();
+}
+
+void YSpan::writeValue(rapidjson::Writer<rapidjson::StringBuffer>& writer,const opentracing::Value& value) const
+{
+    /*
+     bool, double, int64_t, uint64_t, std::string, std::nullptr_t, const char*,
+     util::recursive_wrapper<Values>, util::recursive_wrapper<Dictionary>
+     */
+    std::size_t index = value.which();
+    switch ( index ) {
+        case 0:
+            writer.Bool(value.get<bool>());
+            break;
+        case 1:
+        {
+            writer.Double(value.get<double>());
+        }
+            break;
+        case 2:
+        {
+            int64_t num = value.get<int64_t>();
+            writer.Int64(num);
+        }
+            break;
+        case 3:
+        {
+            writer.Uint64(value.get<uint64_t>());
+        }
+            break;
+        case 4:
+        {
+            writer.String(value.get<std::string>().c_str());
+        }
+            break;
+        case 5:
+        {
+            writer.Null();
+        }
+            break;
+        case 6:
+        {
+            const char* ch = value.get<const char*>();
+            writer.String(ch);
+        }
+            break;
+        case 7:
+        {
+            writer.StartArray();
+            for ( auto recurvalue : value.get<opentracing::Values>() )
+            {
+                writeValue(writer,recurvalue);
+            }
+            writer.EndArray();
+        }
+            break;
+        case 8:
+        {
+            writer.StartObject();
+            for ( auto recurvalue : value.get<opentracing::Dictionary>() ) {
+                writer.Key(recurvalue.first.c_str());
+                writeValue(writer,recurvalue.second);
+            }
+            writer.EndObject();
+        }
+            break;
+
+        default:
+            writer.Int64(index);
+            break;
+    }
 }
 }  // namespace YYOT

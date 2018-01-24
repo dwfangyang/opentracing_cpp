@@ -10,8 +10,10 @@
 #include "yspan_context.h"
 //#include "logger.h"
 //#include "recorder.h"
+#include <rapidjson/writer.h>
 
 namespace YYOT {
+
 //Reference
 class Reference{
 public:
@@ -64,6 +66,9 @@ class YSpan : public opentracing::Span {
   const opentracing::Tracer& tracer() const noexcept override {
     return *tracer_;
   }
+  const std::string toJson() const;
+  void writeValue(rapidjson::Writer<rapidjson::StringBuffer>& writer,const opentracing::Value& value) const;
+  void writeReference(rapidjson::Writer<rapidjson::StringBuffer>& writer,const Reference& ref) const;
 
  private:
   // Fields set in StartSpan() are not protected by a mutex.
@@ -73,7 +78,7 @@ class YSpan : public opentracing::Span {
   std::vector<Reference> references_;
   std::chrono::system_clock::time_point start_timestamp_;
   std::chrono::steady_clock::time_point start_steady_;
-  std::chrono::steady_clock::time_point finish_steady_;
+  std::chrono::steady_clock::duration   duration_;
   YSpanContext span_context_;
 
   std::atomic<bool> is_finished_{false};

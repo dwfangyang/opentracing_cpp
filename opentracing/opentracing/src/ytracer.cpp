@@ -85,7 +85,7 @@ YTracer::MakeSpanContext(
   return opentracing::make_unexpected(
       std::make_error_code(std::errc::not_enough_memory));
 }
-
+    
 //------------------------------------------------------------------------------
 // MakeThreadedTracer
 //------------------------------------------------------------------------------
