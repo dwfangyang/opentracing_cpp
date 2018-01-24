@@ -19,9 +19,9 @@
 //#include "utility.h"
 
 namespace YYOT {
-const opentracing::string_view component_name_key = "lightstep.component_name";
+const opentracing::string_view component_name_key = "yyot.component_name";
 const opentracing::string_view collector_service_full_name =
-    "lightstep.collector.CollectorService";
+    "yyot.collector.CollectorService";
 const opentracing::string_view collector_method_name = "Report";
 
 //------------------------------------------------------------------------------
@@ -32,10 +32,10 @@ static const std::vector<
 GetDefaultTags() {
   static const std::vector<
       std::pair<opentracing::string_view, opentracing::Value>>
-      default_tags = {{"lightstep.tracer_platform", "c++"},
-                      {"lightstep.tracer_platform_version", __cplusplus},
+      default_tags = {{"yyot.tracer_platform", "c++"},
+                      {"yyot.tracer_platform_version", __cplusplus},
 //                      {"lightstep.tracer_version", LIGHTSTEP_VERSION},
-                      {"lightstep.opentracing_version", OPENTRACING_VERSION}};
+                      {"yyot.opentracing_version", OPENTRACING_VERSION}};
   return default_tags;
 }
 
@@ -58,16 +58,16 @@ const std::string& CollectorMethodName() {
 //------------------------------------------------------------------------------
 // GetTraceSpanIds
 //------------------------------------------------------------------------------
-opentracing::expected<std::array<uint64_t, 2>> LightStepTracer::GetTraceSpanIds(
+opentracing::expected<std::array<uint64_t, 2>> YTracer::GetTraceSpanIds(
     const opentracing::SpanContext& span_context) const noexcept {
-  auto lightstep_span_context =
+  auto y_span_context =
       dynamic_cast<const YSpanContext*>(&span_context);
-  if (lightstep_span_context == nullptr) {
+  if (y_span_context == nullptr) {
     return opentracing::make_unexpected(
         opentracing::invalid_span_context_error);
   }
   std::array<uint64_t, 2> result = {
-      {lightstep_span_context->trace_id(), lightstep_span_context->span_id()}};
+      {y_span_context->trace_id(), y_span_context->span_id()}};
   return result;
 }
 
@@ -75,7 +75,7 @@ opentracing::expected<std::array<uint64_t, 2>> LightStepTracer::GetTraceSpanIds(
 // MakeSpanContext
 //------------------------------------------------------------------------------
 opentracing::expected<std::unique_ptr<opentracing::SpanContext>>
-LightStepTracer::MakeSpanContext(
+YTracer::MakeSpanContext(
     uint64_t trace_id, uint64_t span_id,
     std::unordered_map<std::string, std::string>&& baggage) const noexcept try {
   std::unique_ptr<opentracing::SpanContext> result{
@@ -89,7 +89,7 @@ LightStepTracer::MakeSpanContext(
 //------------------------------------------------------------------------------
 // MakeThreadedTracer
 //------------------------------------------------------------------------------
-static std::shared_ptr<LightStepTracer> MakeThreadedTracer(
+static std::shared_ptr<YTracer> MakeThreadedTracer(
     /*std::shared_ptr<Logger> logger,*/ YTracerOptions&& options) {
 //  std::unique_ptr<SyncTransporter> transporter;
 //  if (options.transporter != nullptr) {
@@ -108,7 +108,7 @@ static std::shared_ptr<LightStepTracer> MakeThreadedTracer(
 //  propagation_options.use_single_key = options.use_single_key_propagation;
 //  auto recorder = std::unique_ptr<Recorder>{
 //      new AutoRecorder{*logger, std::move(options), std::move(transporter)}};
-  return std::shared_ptr<LightStepTracer>{new YTracerImpl{
+  return std::shared_ptr<YTracer>{new YTracerImpl{
       /*std::move(logger), */propagation_options/*, std::move(recorder)*/}};
 }
 
@@ -143,7 +143,7 @@ static std::shared_ptr<LightStepTracer> MakeThreadedTracer(
 //------------------------------------------------------------------------------
 // MakeLightStepTracer
 //------------------------------------------------------------------------------
-std::shared_ptr<LightStepTracer> MakeLightStepTracer(
+std::shared_ptr<YTracer> MakeYTracer(
     YTracerOptions&& options) noexcept try {
   // Create and configure the logger.
 //  auto logger = std::make_shared<Logger>(std::move(options.logger_sink));
@@ -155,10 +155,10 @@ std::shared_ptr<LightStepTracer> MakeLightStepTracer(
     }
 
     // Validate `options`.
-    if (options.access_token.empty()) {
+//    if (options.access_token.empty()) {
 //      logger->Error("Must provide an access_token!");
-      return nullptr;
-    }
+//      return nullptr;
+//    }
 
     // Copy over default tags.
     for (const auto& tag : GetDefaultTags()) {
@@ -166,11 +166,11 @@ std::shared_ptr<LightStepTracer> MakeLightStepTracer(
     }
 
     // Set the component name if not provided to the program name.
-    if (options.component_name.empty()) {
-      options.tags.emplace(component_name_key, "component_name"/*GetProgramName()*/);
-    } else {
-      options.tags.emplace(component_name_key, options.component_name);
-    }
+//    if (options.component_name.empty()) {
+//      options.tags.emplace(component_name_key, GetProgramName());
+//    } else {
+//      options.tags.emplace(component_name_key, options.component_name);
+//    }
 
 //    if (!options.use_thread) {
 //      return MakeSingleThreadedTracer(logger, std::move(options));

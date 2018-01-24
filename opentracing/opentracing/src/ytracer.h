@@ -52,7 +52,7 @@ struct YTracerOptions {
   // process.
   std::string component_name;
 
-  // `access_token` is the unique API key for your LightStep project. It is
+  // `access_token` is the unique API key for your YYOT project. It is
   // available on your account page at https://app.lightstep.com/account
   std::string access_token;
 
@@ -83,7 +83,7 @@ struct YTracerOptions {
 
   // If `use_thread` is true, then the tracer will internally manage a thread to
   // regularly send reports to the collector; otherwise, if false,
-  // LightStepTracer::Flush must be manually invoked to send reports.
+  // YTracer::Flush must be manually invoked to send reports.
   //
   // Note: If `use_thread` is false, then the tracer doesn't do internal
   // locking so as to be non-blocking; so if spans are started and finished
@@ -112,9 +112,9 @@ struct YTracerOptions {
 //  std::unique_ptr<MetricsObserver> metrics_observer;
 };
 
-// The LightStepTracer interface can be used by custom carriers that need more
+// The YTracer interface can be used by custom carriers that need more
 // direct access to a span context's data so as to propagate more efficiently.
-class LightStepTracer : public opentracing::Tracer {
+class YTracer : public opentracing::Tracer {
  public:
   opentracing::expected<std::array<uint64_t, 2>> GetTraceSpanIds(
       const opentracing::SpanContext& span_context) const noexcept;
@@ -128,6 +128,6 @@ class LightStepTracer : public opentracing::Tracer {
 };
 
 // Returns a std::shared_ptr to a LightStepTracer or nullptr on failure.
-std::shared_ptr<LightStepTracer> MakeLightStepTracer(
+std::shared_ptr<YTracer> MakeYTracer(
     YTracerOptions&& options) noexcept;
 }  // namespace lightstep

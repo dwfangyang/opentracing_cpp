@@ -11,13 +11,13 @@ template <class Carrier>
 static opentracing::expected<void> InjectImpl(
     const PropagationOptions& propagation_options,
     const opentracing::SpanContext& span_context, Carrier& writer) {
-  auto lightstep_span_context =
+  auto y_span_context =
       dynamic_cast<const YSpanContext*>(&span_context);
-  if (lightstep_span_context == nullptr) {
+  if (y_span_context == nullptr) {
     return opentracing::make_unexpected(
         opentracing::invalid_span_context_error);
   }
-  return lightstep_span_context->Inject(propagation_options, writer);
+  return y_span_context->Inject(propagation_options, writer);
 }
 
 //------------------------------------------------------------------------------
@@ -26,16 +26,16 @@ static opentracing::expected<void> InjectImpl(
 template <class Carrier>
 opentracing::expected<std::unique_ptr<opentracing::SpanContext>> ExtractImpl(
     const PropagationOptions& propagation_options, Carrier& reader) {
-  YSpanContext* lightstep_span_context;
+  YSpanContext* y_span_context;
   try {
-    lightstep_span_context = new YSpanContext{};
+    y_span_context = new YSpanContext{};
   } catch (const std::bad_alloc&) {
     return opentracing::make_unexpected(
         make_error_code(std::errc::not_enough_memory));
   }
   std::unique_ptr<opentracing::SpanContext> span_context(
-      lightstep_span_context);
-  auto result = lightstep_span_context->Extract(propagation_options, reader);
+      y_span_context);
+  auto result = y_span_context->Extract(propagation_options, reader);
   if (!result) {
     return opentracing::make_unexpected(result.error());
   }

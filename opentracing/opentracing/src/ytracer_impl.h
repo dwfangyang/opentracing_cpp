@@ -8,7 +8,7 @@
 
 namespace YYOT {
 class YTracerImpl
-    : public LightStepTracer,
+    : public YTracer,
       public std::enable_shared_from_this<YTracerImpl> {
  public:
   YTracerImpl(const PropagationOptions& propagation_options/*,

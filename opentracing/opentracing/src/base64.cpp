@@ -150,4 +150,4 @@ std::string Base64::encode(const char* input, uint64_t length) {
 
   return ret;
 }
-} // namespace lightstep
+} // namespace YYOP
